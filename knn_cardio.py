@@ -21,13 +21,13 @@ def distance(pa, pb):
 # deklarasi fungsi KNN
 def KNN(x, y, x_query, k):
 
-    # inisialisasi untuk menghitung jarak setiap data training
+    # inisialisasi untuk menghitung jarak setiap data training terhadap data test
     m = x.shape[0]
     distances = []
     
-    # menghitung jarak setiap data training
+    # menghitung jarak setiap data training terhadap data test
     for i in range(m):
-        dis = distance(x_query, x[i])
+        dis = distance(x[i], x_query)
         distances.append((dis, y[i]))
     
     # mengurutkan jarak
