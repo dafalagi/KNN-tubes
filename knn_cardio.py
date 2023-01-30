@@ -9,7 +9,7 @@ x = cardio.iloc[:, :8].values
 y = cardio['CLASS cardio'].values
 
 # memisahkan data set dengan data training
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.1, random_state=42)
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=100, random_state=51)
 
 # deklarasi fungsi menghitung jarak
 def distance(pa, pb):
@@ -46,7 +46,6 @@ def KNN(x, y, x_query, k):
     
 k = 9
 pred = KNN(x_train, y_train, x_test[0], k)
-print('Class Cardio:', pred)
 
 # inisialisasi menghitung akurasi
 prediction = []
@@ -57,19 +56,28 @@ for i in range(100):
 # menghitung akurasi
 predictions = np.array(prediction)
 percentage = (y_test[:100] == predictions).sum()/len(predictions)
-print('Akurasi:', percentage)
 
 
 # perbandingan menggunakan sklearn
 knn = KNeighborsClassifier(n_neighbors=9)
 knn.fit(x_train, y_train)
 
-pred = knn.predict(x_test[0].reshape(1, -1))
-print('Class Cardio sklearn:', pred)
+predsklern = knn.predict(x_test[0].reshape(1, -1))
 
 prediction = []
 for i in range(100):
     p = knn.predict(x_test[i].reshape(1, -1))
     prediction.append(p)
 percent = (y_test[:100] == prediction).sum()/len(prediction)
+
+print(' ')
+print('===================start===================')
+print('Hasil yang didapatkan dari cara manual:')
+print('Class Cardio:', pred)
+print('Akurasi:', percentage)
+print(' ')
+print('Hasil yang didapatkan dari library sklearn:')
+print('Class Cardio sklearn:', predsklern)
 print('Akurasi sklearn:', percent)
+print('====================end====================')
+print(' ')
